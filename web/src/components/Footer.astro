@@ -1,11 +1,14 @@
 ---
+import { asset } from "../lib/asset";
+
 const year = new Date().getFullYear();
+const logo = asset("logo.png");
 ---
 
 <footer>
   <div class="container row">
     <div class="brand">
-      <img src="/logo.png" alt="" width="22" height="22" />
+      <img src={logo} alt="" width="22" height="22" />
       <span>Agent Usage Observer</span>
     </div>
     <p>© {year} · Cliente no oficial.</p>

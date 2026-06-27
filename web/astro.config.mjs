@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 
 // https://astro.build
+// Project page de GitHub: el sitio se sirve bajo /AgentsUsageObserver.
 export default defineConfig({
-  // Si vas a publicar en GitHub Pages bajo un subpath, ajusta `site` y `base`.
-  // site: 'https://tuusuario.github.io',
-  // base: '/AgentsUsageLimitObserver',
+  site: 'https://maxamo203.github.io',
+  base: '/AgentsUsageObserver',
 });

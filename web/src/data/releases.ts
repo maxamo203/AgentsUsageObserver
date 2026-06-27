@@ -5,16 +5,19 @@ export interface Release {
   version: string;
   date: string;          // YYYY-MM-DD
   current?: boolean;
-  installer: string;     // ruta dentro de /public
+  installer: string;     // URL de descarga (GitHub Release)
   changes: { type: 'new' | 'fix' | 'change'; text: string }[];
 }
+
+// URL base de los assets publicados en GitHub Releases.
+const REL = 'https://github.com/maxamo203/AgentsUsageObserver/releases/download';
 
 export const releases: Release[] = [
   {
     version: '0.1.0',
     date: '2026-06-26',
     current: true,
-    installer: '/downloads/AgentUsageObserver-0.1.0-Setup.exe',
+    installer: `${REL}/v0.1.0/AgentUsageObserver-0.1.0-Setup.exe`,
     changes: [
       { type: 'new', text: 'Monitor de uso de agentes de IA desde la bandeja del sistema (empezando por Claude Code).' },
       { type: 'new', text: 'Botón de refresh junto al nombre de cada agente para actualizar solo su información.' },

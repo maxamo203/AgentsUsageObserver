@@ -1,12 +1,15 @@
 ---
 import { currentRelease } from "../data/releases";
+import { asset } from "../lib/asset";
+
+const logo = asset("logo.png");
 ---
 
 <section id="top" class="hero">
   <div class="container grid">
     <div class="copy">
       <div class="brand">
-        <img src="/logo.png" alt="" width="40" height="40" />
+        <img src={logo} alt="" width="40" height="40" />
         <span>Agent Usage Observer</span>
       </div>
       <p class="eyebrow">Para Windows · Agentes de IA</p>
