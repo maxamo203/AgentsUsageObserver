@@ -1,0 +1,95 @@
+---
+const features = [
+  {
+    color: 'var(--green)',
+    title: 'Siempre a la vista',
+    text: 'Un icono en la bandeja del sistema con tu porcentaje de uso. Doble clic abre el panel completo.',
+  },
+  {
+    color: 'var(--yellow)',
+    title: 'Aviso por color',
+    text: 'Verde, amarillo y rojo según cuánto consumiste. Te enterás antes de chocar con el límite.',
+  },
+  {
+    color: 'var(--blue)',
+    title: 'Dos ventanas de límite',
+    text: 'Seguí el límite de 5 horas y el semanal por separado, con cuenta regresiva hasta el reinicio.',
+  },
+  {
+    color: 'var(--red)',
+    title: 'A tu ritmo',
+    text: 'Ajustá cada cuánto se actualiza la información para que consulte solo lo que necesitás.',
+  },
+  {
+    color: 'var(--blue)',
+    title: 'A tu manera',
+    text: 'Definí tus propios umbrales de color o dejá que decida la severidad que reporta el servidor.',
+  },
+  {
+    color: 'var(--green)',
+    title: 'Arranca con Windows',
+    text: 'Opcional: que se inicie solo al encender la PC y quede monitoreando en segundo plano.',
+  },
+  {
+    color: 'var(--yellow)',
+    title: 'Pensado para varios agentes',
+    text: 'Hoy monitorea Claude Code; la arquitectura ya está lista para sumar Gemini, ChatGPT/Codex y más.',
+  },
+  {
+    color: 'var(--blue)',
+    title: 'Refresco por agente',
+    text: 'Un botón junto al nombre de cada agente actualiza solo su información, cuando lo necesitás.',
+  },
+];
+---
+
+<section id="features">
+  <div class="container">
+    <p class="eyebrow">Qué hace</p>
+    <h2>Lo justo para no pasarte de la cuota.</h2>
+
+    <div class="grid">
+      {features.map((f) => (
+        <div class="card feature">
+          <span class="tag" style={`background:${f.color}`}></span>
+          <h3>{f.title}</h3>
+          <p>{f.text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  h2 {
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 36px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .feature h3 {
+    font-size: 18px;
+    margin: 14px 0 8px;
+  }
+  .feature p {
+    color: var(--muted);
+    font-size: 15px;
+    margin: 0;
+  }
+  .tag {
+    display: block;
+    width: 32px;
+    height: 6px;
+    border-radius: 99px;
+  }
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

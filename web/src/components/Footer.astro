@@ -1,0 +1,39 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="container row">
+    <div class="brand">
+      <img src="/logo.png" alt="" width="22" height="22" />
+      <span>Agent Usage Observer</span>
+    </div>
+    <p>© {year} · Cliente no oficial.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 32px 0;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>

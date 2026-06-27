@@ -1,0 +1,59 @@
+---
+import { currentRelease } from '../data/releases';
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <nav>
+      <a href="#features">Características</a>
+      <a href="#versions">Versiones</a>
+      <a href={currentRelease.installer} class="btn btn-primary btn-sm" download>
+        Descargar
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 64px;
+  }
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  nav a:not(.btn) {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  nav a:not(.btn):hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+  .btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: var(--ink);
+  }
+  .btn-sm:hover {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    nav a:not(.btn) {
+      display: none;
+    }
+  }
+</style>
