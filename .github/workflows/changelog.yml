@@ -9,6 +9,7 @@ on:
 permissions:
   contents: write   # commitear releases.json de vuelta a main
   models: read      # GitHub Models (inferencia gratis con github.token)
+  actions: write    # disparar el deploy de Pages (workflow_dispatch)
 
 # Un changelog a la vez.
 concurrency:
@@ -67,13 +68,24 @@ jobs:
           node scripts/generate-changelog.mjs "${{ steps.commits.outputs.version }}" commits.txt diff.txt
 
       - name: Commit y push de releases.json
+        id: push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git diff --quiet -- web/public/releases.json; then
             echo "Sin cambios en releases.json; nada que commitear."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git add web/public/releases.json
           git commit -m "chore(release): actualizar releases.json para ${GITHUB_REF_NAME}"
           git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      # El push lo hace el GITHUB_TOKEN, y por diseño de GitHub eso NO dispara
+      # otros workflows (anti-loops). Así que gatillamos el deploy de Pages a mano.
+      - name: Redeploy de la web (Pages)
+        if: steps.push.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --ref main
