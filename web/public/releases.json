@@ -1,9 +1,28 @@
 {
   "releases": [
     {
-      "version": "0.1.1",
+      "version": "0.1.2",
       "date": "2026-07-01",
       "current": true,
+      "installer": "https://github.com/maxamo203/AgentsUsageObserver/releases/download/v0.1.2/AgentUsageObserver-0.1.2-Setup.exe",
+      "changes": [
+        {
+          "type": "new",
+          "text": "Se implementó un sistema de actualización automática que verifica si hay nuevas versiones disponibles al iniciar la aplicación."
+        },
+        {
+          "type": "change",
+          "text": "Se añadió la opción en la configuración para habilitar o deshabilitar la búsqueda de actualizaciones al iniciar."
+        },
+        {
+          "type": "new",
+          "text": "Se incorporaron mensajes en español para notificar al usuario sobre actualizaciones disponibles."
+        }
+      ]
+    },
+    {
+      "version": "0.1.1",
+      "date": "2026-07-01",
       "installer": "https://github.com/maxamo203/AgentsUsageObserver/releases/download/v0.1.1/AgentUsageObserver-0.1.1-Setup.exe",
       "changes": [
         {
