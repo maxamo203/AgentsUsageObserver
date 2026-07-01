@@ -21,6 +21,7 @@ public partial class App : Application
     private SettingsService? _settingsService;
     private PollingService? _polling;
     private TrayController? _tray;
+    private UpdateService? _updateService;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -60,6 +61,10 @@ public partial class App : Application
         _settingsService.Changed += _ => _polling!.PollNow();
 
         _polling.Start();
+
+        // Chequeo de actualizaciones al arrancar (best-effort, no bloquea el tray).
+        _updateService = new UpdateService(_http, _settingsService);
+        _ = _updateService.CheckAsync();
     }
 
     protected override void OnExit(ExitEventArgs e)

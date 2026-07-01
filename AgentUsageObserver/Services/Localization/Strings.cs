@@ -74,6 +74,14 @@ public enum Str
     WaitSeconds,              // {0}
     WaitMinutes,              // {0}
     WaitHours,                // {0}
+
+    // Actualizaciones
+    UpdateAvailableTitle,
+    UpdateAvailableMessage,   // {0}=versión nueva {1}=versión actual
+    UpdateButtonInstall,
+    UpdateButtonLater,
+    UpdateButtonSkip,
+    UpdateDownloadError,      // {0} = mensaje
 }
 
 /// <summary>
@@ -141,6 +149,13 @@ public static class Strings
         [Str.WaitSeconds] = "{0} s",
         [Str.WaitMinutes] = "{0} min",
         [Str.WaitHours] = "{0} h",
+
+        [Str.UpdateAvailableTitle] = "Update available",
+        [Str.UpdateAvailableMessage] = "A new version is available: {0} (you have {1}).\n\nDownload and install it now?",
+        [Str.UpdateButtonInstall] = "Install now",
+        [Str.UpdateButtonLater] = "Later",
+        [Str.UpdateButtonSkip] = "Skip this version",
+        [Str.UpdateDownloadError] = "Could not download the update:\n\n{0}",
     };
 
     public static readonly IReadOnlyDictionary<Str, string> Es = new Dictionary<Str, string>
@@ -203,6 +218,13 @@ public static class Strings
         [Str.WaitSeconds] = "{0} s",
         [Str.WaitMinutes] = "{0} min",
         [Str.WaitHours] = "{0} h",
+
+        [Str.UpdateAvailableTitle] = "Actualización disponible",
+        [Str.UpdateAvailableMessage] = "Hay una versión nueva: {0} (tenés la {1}).\n\n¿Descargarla e instalarla ahora?",
+        [Str.UpdateButtonInstall] = "Instalar ahora",
+        [Str.UpdateButtonLater] = "Después",
+        [Str.UpdateButtonSkip] = "Omitir esta versión",
+        [Str.UpdateDownloadError] = "No se pudo descargar la actualización:\n\n{0}",
     };
 
     public static readonly IReadOnlyDictionary<Str, string> Pt = new Dictionary<Str, string>
@@ -265,5 +287,12 @@ public static class Strings
         [Str.WaitSeconds] = "{0} s",
         [Str.WaitMinutes] = "{0} min",
         [Str.WaitHours] = "{0} h",
+
+        [Str.UpdateAvailableTitle] = "Atualização disponível",
+        [Str.UpdateAvailableMessage] = "Há uma versão nova: {0} (você tem a {1}).\n\nBaixar e instalar agora?",
+        [Str.UpdateButtonInstall] = "Instalar agora",
+        [Str.UpdateButtonLater] = "Depois",
+        [Str.UpdateButtonSkip] = "Ignorar esta versão",
+        [Str.UpdateDownloadError] = "Não foi possível baixar a atualização:\n\n{0}",
     };
 }

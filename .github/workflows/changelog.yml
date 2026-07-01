@@ -1,0 +1,79 @@
+name: Generate changelog & update releases.json
+
+# Se dispara al empujar un tag tipo v0.2.0 (mismo evento que release.yml).
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write   # commitear releases.json de vuelta a main
+  models: read      # GitHub Models (inferencia gratis con github.token)
+
+# Un changelog a la vez.
+concurrency:
+  group: changelog
+  cancel-in-progress: false
+
+jobs:
+  changelog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (con historia completa para el diff de commits)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main   # commiteamos sobre main, no sobre el tag (detached)
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Reunir commits desde el tag anterior
+        id: commits
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+          # Tag inmediatamente anterior a este (por fecha de creación).
+          PREV="$(git describe --tags --abbrev=0 "${TAG}^" 2>/dev/null || true)"
+          if [ -n "$PREV" ]; then
+            RANGE="${PREV}..${TAG}"
+          else
+            RANGE="${TAG}"   # primera release: todos los commits hasta el tag
+          fi
+          echo "Rango de commits: ${RANGE}"
+          git log "${RANGE}" --no-merges --pretty=%s > commits.txt
+          # Diff de código del rango, para que la IA entienda qué cambió de verdad.
+          # Excluimos ruido pesado ya en git (el script filtra el resto y trunca).
+          if [ -n "$PREV" ]; then
+            git diff "${PREV}..${TAG}" -- . \
+              ':(exclude)**/package-lock.json' \
+              ':(exclude)web/dist/**' \
+              ':(exclude)installer_output/**' > diff.txt || true
+          else
+            : > diff.txt   # primera release: sin diff base, va solo por commits
+          fi
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "---- commits ----"
+          cat commits.txt
+          echo "---- diff (bytes) ----"
+          wc -c < diff.txt
+
+      - name: Generar changelog y actualizar releases.json
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/generate-changelog.mjs "${{ steps.commits.outputs.version }}" commits.txt diff.txt
+
+      - name: Commit y push de releases.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- web/public/releases.json; then
+            echo "Sin cambios en releases.json; nada que commitear."
+            exit 0
+          fi
+          git add web/public/releases.json
+          git commit -m "chore(release): actualizar releases.json para ${GITHUB_REF_NAME}"
+          git push origin HEAD:main

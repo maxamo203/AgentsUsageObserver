@@ -26,6 +26,10 @@ ArchitecturesInstallIn64BitMode=x64compatible
 ArchitecturesAllowed=x64compatible
 ; Requiere Windows 10 o superior (build 10240+)
 MinVersion=10.0.10240
+; Cierra la app si está corriendo (necesario para el auto-update /SILENT que
+; sobrescribe el ejecutable). RestartApplications la vuelve a abrir al terminar.
+CloseApplications=yes
+RestartApplications=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"

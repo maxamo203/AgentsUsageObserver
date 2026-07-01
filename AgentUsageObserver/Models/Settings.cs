@@ -24,6 +24,15 @@ public sealed class Settings
     /// </summary>
     public bool UseServerSeverity { get; set; } = false;
 
+    /// <summary>Buscar actualizaciones al iniciar (consulta GitHub Releases).</summary>
+    public bool CheckForUpdates { get; set; } = true;
+
+    /// <summary>
+    /// Versión que el usuario pidió omitir (ej. "0.2.0"). Si la última release
+    /// coincide con este valor, no se vuelve a avisar por ella.
+    /// </summary>
+    public string? IgnoredUpdateVersion { get; set; }
+
     public const int MinIntervalSeconds = 60;
     public const int MaxIntervalSeconds = 900;
 
